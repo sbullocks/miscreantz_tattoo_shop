@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const mongoose = require('mongoose');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +28,15 @@ app.get('/appointments', (req, res) => {
 
 app.get('/appointments/artist/:artistId', (req, res) => {
     // handle retrieving appointments for a specific artist
+});
+
+mongoose.connect('mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.log('Error connecting to MongoDB:', err);
 });
 
 app.listen(3000, () => {
