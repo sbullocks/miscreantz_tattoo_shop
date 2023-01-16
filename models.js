@@ -7,3 +7,7 @@ const AppointmentSchema = new mongoose.Schema({
     time: { type: String, required: true },
 });
 
+const ArtistSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    portfolio: [{ type: String }],
+});
