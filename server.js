@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
+const { AppointmentSchema, ArtistSchema, Appointment, Artist } = require('./models');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,6 +30,21 @@ app.get('/appointments', (req, res) => {
 app.get('/appointments/artist/:artistId', (req, res) => {
     // handle retrieving appointments for a specific artist
 });
+
+app.post('/appointments', (req, res) => {
+    const appointment = new Appointment({
+        artistId: req.body.artistId,
+        clientId: req.body.clientId,
+        date: req.body.date,
+        time: req.body.time,
+    });
+    appointment.save().then(() => {
+        res.json({ message: 'Appointment created!' });
+    }).catch(err => {
+        res.json({ error: err });
+    });
+});
+
 
 mongoose.connect('mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>', {
     useNewUrlParser: true,
