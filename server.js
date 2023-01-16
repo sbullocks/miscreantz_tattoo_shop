@@ -21,6 +21,14 @@ app.delete('/appointments/:id', (req, res) => {
     // handle deleting an existing appointment
 });
 
+app.get('/appointments', (req, res) => {
+    // handle retrieving all appointments
+});
+
+app.get('/appointments/artist/:artistId', (req, res) => {
+    // handle retrieving appointments for a specific artist
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
