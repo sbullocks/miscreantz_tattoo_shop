@@ -15,22 +15,47 @@ app.post('/appointments', (req, res) => {
 
 app.get('/appointments/:id', (req, res) => {
     // handle retrieving an existing appointment
+    Appointment.findById(req.params.id).then(appointment => {
+        res.json(appointment);
+    }).catch(err => {
+        res.json({ error: err });
+    });
 });
 
 app.put('/appointments/:id', (req, res) => {
     // handle updating an existing appointment
+    Appointment.findOneAndUpdate({ _id: req.params.id }, req.body).then(() => {
+        res.json({ message: 'Appointment updated!' });
+    }).catch(err => {
+        res.json({ error: err });
+    });
 });
 
 app.delete('/appointments/:id', (req, res) => {
     // handle deleting an existing appointment
+    Appointment.findOneAndDelete({ _id: req.params.id }).then(() => {
+        res.json({ message: 'Appointment deleted!' });
+    }).catch(err => {
+        res.json({ error: err });
+    });
 });
 
 app.get('/appointments', (req, res) => {
     // handle retrieving all appointments
+    Appointment.find().then(appointments => {
+        res.json(appointments);
+    }).catch(err => {
+        res.json({ error: err });
+    });
 });
 
 app.get('/appointments/artist/:artistId', (req, res) => {
     // handle retrieving appointments for a specific artist
+    Appointment.find({artistId: req.params.artistId}).then(appointments => {
+        res.json(appointments);
+    }).catch(err => {
+        res.json({ error: err });
+    });
 });
 
 app.post('/appointments', (req, res) => {
